@@ -9,19 +9,19 @@ export const Navbar = () => {
 				<span className="navbar-brand mb-0  h1">	<img  className="logo mx-lg-4" src={logo} /></span>
 			</Link>
 			<div className="ml-auto">
-			<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Favorites <span class="badge bg-secondary">4</span>
+			<div className="dropdown mx-5 p-0">
+					<button className="btn btn-primary dropdown-toggle px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Favorites <span className="badge bg-secondary">4</span>
 					</button>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Action</a></li>
-						<li><a class="dropdown-item" href="#">Another action</a></li>
-						<li><a class="dropdown-item" href="#">Something else here</a></li>
+					<ul className="dropdown-menu">
+						<li><a className="dropdown-item" href="#">Action</a></li>
+						<li><a className="dropdown-item" href="#">Another action</a></li>
+						<li><a className="dropdown-item" href="#">Something else here</a></li>
 					</ul>
-					</div>
-				<Link to="/demo">
+			</div>
+				{/*<Link to="/demo">
 					<button className="btn btn-primary">Check the Context in action</button>
-				</Link>
+				</Link>*/}
 			</div>
 		</nav>
 	);

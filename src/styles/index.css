@@ -7,3 +7,21 @@
     margin: 0 auto;
     display: block;
 }
+.navbar {
+    padding: 0 !important;
+    background-color: #ffffff !important;
+    margin: 0 !important;
+}
+
+.byellow {
+    background-color: #f7d70f !important;
+}
+
+.fa-heart{
+    border: 1px solid #f7d70f;
+    padding: 10px;
+    color:#f7d70f
+}
+.cyellow {
+    color: red !important;
+}
