@@ -12,40 +12,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       character: [],
     },
     actions: {
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
-      },
-      loadSomeData: () => {
-        console.log("Data loaded");
-      },
-      loadPlanets: () => {
-        fetch("https://www.swapi.tech/api/planets")
-          .then((response) => {
-            if (!response.ok) throw new Error("La respuesta de la red no fue correcta");
-            return response.json();
-          })
-          .then((data) => setStore({ planets: data.results }))
-          .catch((err) => console.error(err));
-      },
-      loadVehicles: () => {
-        fetch("https://www.swapi.tech/api/vehicles")
-          .then((response) => {
-            if (!response.ok) throw new Error("La respuesta de la red no fue correcta");
-            return response.json();
-          })
-          .then((data) => setStore({ vehicles: data.results }))
-          .catch((err) => console.error(err));
-      },
-      addFavorite: (name) => {
-        const store = getStore();
-        const favorites = store.favorites.concat(name);
-        setStore({ favorites });
-      },
-      deleteFavorite: (name) => {
-        const store = getStore();
-        const favorites = store.favorites.filter((favorite) => favorite !== name);
-        setStore({ favorites });
-      },
+     
+
+      Favorite: (name) => {
+      
+            setStore(name);
+    },
+    
+   
       loadCharacters: () => {
         const store = getStore();
         const fetchCharacterData = async (id) => {
@@ -58,18 +32,20 @@ const getState = ({ getStore, getActions, setStore }) => {
         const fetchAllCharacters = async () => {
           const characterPromises = store.people.map((_, i) => fetchCharacterData(i + 1));
           const characters = await Promise.all(characterPromises);
-          setStore({ character: characters });
+          setStore({ ...store, character: characters });
         };
 
-        fetchAllCharacters().catch((err) => console.error(err));
+        fetchAllCharacters().catch(err => console.error(err));
       },
       changeColor: (index, color) => {
         const store = getStore();
         const demo = store.demo.map((elm, i) => {
+          console.log(elm);
+          
           if (i === index) elm.background = color;
           return elm;
         });
-        setStore({ demo });
+        setStore({ ...store, demo });
       },
     },
   };

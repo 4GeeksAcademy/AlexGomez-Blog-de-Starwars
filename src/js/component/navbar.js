@@ -23,6 +23,8 @@ export const Navbar = () => {
                     {store.favorites.length <= 0 ?  <li  className="d-flex justify-content-center dropdown-item text-center"><h5 >(Empty)</h5> </li> : <>
                         
                         {store.favorites.map((item, index) => (
+                           
+                            
                             <li key={index} className="d-flex justify-content-between dropdown-item">
                                 <span>{item}</span>
                                 <i className="fas fa-trash-alt" onClick={() => actions.deleteFavorite(item)}></i>

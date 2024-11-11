@@ -10,11 +10,11 @@ const injectContext = PassedComponent => {
       getState({
         getStore: () => state.store,
         getActions: () => state.actions,
-        setStore: updatedStore =>
-          setState({
-            store: Object.assign({}, state.store, updatedStore),
-            actions: { ...state.actions }
-          })
+        setStore: (updatedStore) => setState((prevState) => ({
+          store: { ...prevState.store, ...updatedStore },  // Merge updated store values with the current store
+          actions: { ...prevState.actions }
+      })),
+      
       })
     );
 
@@ -33,9 +33,10 @@ const injectContext = PassedComponent => {
           });
 
           const characters = await Promise.all(characterDataPromises);
-          
 
-          setState(prevState => ({...prevState, store: { ...prevState.store, people: peopleData.results, character: characters }
+          setState(prevState => ({
+            ...prevState,
+            store: { ...prevState.store, people: peopleData.results, character: characters }
           }));
         } catch (error) {
           console.error("Error al obtener los datos:", error);
