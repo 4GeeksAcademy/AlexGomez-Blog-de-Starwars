@@ -1,99 +1,91 @@
 import React, { useState, useEffect, createContext } from "react";
 import getState from "./flux.js";
 
-// No cambies, aquí es donde inicializamos nuestro contexto, por defecto será null.
 export const Context = createContext(null);
 
-const injectContext = PassedComponent => {
-  const StoreWrapper = props => {
+const injectContext = (PassedComponent) => {
+  const StoreWrapper = (props) => {
     const [state, setState] = useState(
       getState({
         getStore: () => state.store,
         getActions: () => state.actions,
-        setStore: (updatedStore) => setState((prevState) => ({
-          store: { ...prevState.store, ...updatedStore },  // Merge updated store values with the current store
-          actions: { ...prevState.actions }
-      })),
-      
+        setStore: (updatedStore) =>
+          setState((prevState) => ({
+            store: { ...prevState.store, ...updatedStore },
+            actions: { ...prevState.actions },
+          })),
       })
     );
 
     useEffect(() => {
-      const fetchData = async (bool) => {
-
-
-        if(bool="people"){
-        try {
-          const responsePeople = await fetch("https://www.swapi.tech/api/people");
-          if (!responsePeople.ok) throw new Error("La respuesta de la red no fue correcta");
-          const peopleData = await responsePeople.json();
-
-           const characterDataPromises = peopleData.results.map(async (_, index) => {
-            const response = await fetch(`https://www.swapi.tech/api/people/${index + 1}`);
-            if (!response.ok) throw new Error("La respuesta de la red no fue correcta");
-            const singleData = await response.json();
-            return singleData.result.properties;
-          });
-
-          const characters = await Promise.all(characterDataPromises);
-
-          setState(prevState => ({
-            ...prevState,
-            store: { ...prevState.store, people: peopleData.results, character: characters }
-          }));
-        } catch (error) {
-          console.error("Error al obtener los datos:", error);
-        }
-      } if(bool="Planets"){
-        try {
-          const responsePlanets = await fetch("https://www.swapi.tech/api/planets");
-          if (!responsePlanets.ok) throw new Error("La respuesta de la red no fue correcta");
-          const planetsData = await responsePlanets.json();
-
-          const characterDataPlaneta = planetsData.results.map(async (_, index) => {
-            const response = await fetch(`https://www.swapi.tech/api/planets/${index + 1}`);
-            if (!response.ok) throw new Error("La respuesta de la red no fue correcta");
-            const singleData = await response.json();
-            return singleData.result.properties;
-          });
-          const infoplaneta = await Promise.all(characterDataPlaneta);
-          
-          
-          setState(prevState => ({
-            ...prevState,
-            store: { ...prevState.store, planets: planetsData.results, infoplaneta: infoplaneta }
-          }));
-         
-        } catch (error) {
-          console.error("Error al obtener los datos:", error);
-        }
-      } if(bool="Vehicles"){
-        try {
-          const responseVehicles = await fetch("https://www.swapi.tech/api/vehicles");
-          if (!responseVehicles.ok) throw new Error("La respuesta de la red no fue correcta");
-          const vehiclesData = await responseVehicles.json();
-        
-          const characterDataVehicles = vehiclesData.results.map(async (item, index) => {
-            const response = await fetch(`https://www.swapi.tech/api/vehicles/${item.uid}`);
-            if (!response.ok) throw new Error("La respuesta de la red no fue correcta");
-            const singleData = await response.json();
-            return singleData.result.properties;
-          });
-          const infoVehicles = await Promise.all(characterDataVehicles);
-          setState(prevState => ({
-            ...prevState,
-            store: { ...prevState.store, vehicles: vehiclesData.results, infoVehicles: infoVehicles }
-          }));
-        } catch (error) {
-          console.error("Error al obtener los datos:", error);
-        }
-      } 
+      const fetchData = async (key, url) => {
+        const storedData = localStorage.getItem(key);
+      
+        if (storedData) {
+          if(key === "people"){
     
-    };
+          setState((prevState) => ({
+            ...prevState,
+            store: { ...prevState.store, people: JSON.parse(localStorage.getItem('people')) , infopeople: JSON.parse(localStorage.getItem('infopeople'))},
+          }));
 
-      fetchData("people");
-      fetchData("Planets");
-      fetchData("Vehicles");
+        }
+         if(key === "planets"){
+                            
+            setState((prevState) => ({
+              ...prevState,
+              store: { ...prevState.store, planets: JSON.parse(localStorage.getItem('planets')) , infoplaneta: JSON.parse(localStorage.getItem('infoplanets'))},
+            }));  
+         }
+         if(key === "vehicles"){
+                            
+            setState((prevState) => ({
+              ...prevState,
+              store: { ...prevState.store, vehicles: JSON.parse(localStorage.getItem('vehicles')) , infoVehicles: JSON.parse(localStorage.getItem('infovehicles'))},
+            }))
+          }
+          return;
+        }
+
+        try {
+          const response = await fetch(url);
+          if (!response.ok)
+            throw new Error("La respuesta de la red no fue correcta");
+          const data = await response.json();
+        
+          
+
+          const characterDataPromises = data.results.map(
+            async (item, index) => {
+              const detailResponse = await fetch(`${url}/${item.uid}`);
+              if (!detailResponse.ok)
+                throw new Error("La respuesta de la red no fue correcta");
+              const detailData = await detailResponse.json();
+              return detailData.result.properties;
+            }
+          );
+
+          const details = await Promise.all(characterDataPromises);
+
+          setState((prevState) => ({
+            ...prevState,
+            store: {
+              ...prevState.store,
+              [key]: data.results,
+              [`info${key}`]: details,
+            },
+          }));
+
+          localStorage.setItem(key, JSON.stringify(data.results));
+          localStorage.setItem(`info${key}`, JSON.stringify(details));
+        } catch (error) {
+          console.error(`Error al obtener los datos de ${key}:`, error);
+        }
+      };
+
+      fetchData("people", "https://www.swapi.tech/api/people");
+      fetchData("planets", "https://www.swapi.tech/api/planets");
+      fetchData("vehicles", "https://www.swapi.tech/api/vehicles");
     }, []);
 
     return (

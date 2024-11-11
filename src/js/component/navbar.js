@@ -1,4 +1,3 @@
-// component/navbar.js
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/logo.png";
@@ -20,18 +19,21 @@ export const Navbar = () => {
                         Favorites <span className="badge bg-secondary">{store.favorites.length > 0 ? store.favorites.length : 0}</span>
                     </button>
                     <ul className="dropdown-menu">
-                    {store.favorites.length <= 0 ?  <li  className="d-flex justify-content-center dropdown-item text-center"><h5 >(Empty)</h5> </li> : <>
+                         {store.favorites.length <= 0 ?  
+                                <li  className="d-flex justify-content-center dropdown-item text-center">
+                                    <h5 >(Empty)</h5> 
+                                </li> 
+                         : <>
                         
-                        {store.favorites.map((item, index) => (
-                           
-                            
+                         {store.favorites.map((item, index) => (                   
                             <li key={index} className="d-flex justify-content-between dropdown-item">
                                 <span>{item}</span>
-                                <i className="fas fa-trash-alt" onClick={() => {
+                                <i className="fas fa-trash-alt" onClick={() => 
+                                {
                                     const favorites = store.favorites.filter((favorite) => favorite !== item);
-       
                                     actions.Favorite({ favorites: favorites })
-                                }}></i>
+                                }
+                                }></i>
                             </li>
                         ))}
                     </>}
