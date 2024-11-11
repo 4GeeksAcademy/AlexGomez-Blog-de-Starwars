@@ -12,6 +12,7 @@ export const People = () => {
 		
       {people.map((item, index) => (
         <Card
+          type="people"
           key={index}
           name={item.name}
           id={item.uid}

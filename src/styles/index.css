@@ -28,12 +28,12 @@
 .cuadrado { 
     display: flex;
     justify-content: center; 
-    width: 90%; /* Ancho del cuadrado */ 
-    height: 450px; /* Altura del cuadrado */ 
-    overflow-x: auto; /* Habilitar scroll horizontal */ 
-    overflow-y: hidden; /* Ocultar scroll vertical */ 
-    border: 1px solid #000; /* Borde del cuadrado */ 
-    white-space: nowrap; /* Prevenir el salto de línea */
+    width: 90%; 
+    height: 450px; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    
+    white-space: nowrap;
  } 
 
   .contenido { 
@@ -64,3 +64,10 @@
     li{
         list-style: none;
     }
+    .line-break {
+        max-width: 300px; /* Ajusta este valor al tamaño deseado */
+        word-wrap: break-word; /* Hace que las palabras se dividan si son muy largas */
+        overflow-wrap: break-word; /* También hace que las palabras se dividan si son muy largas */
+        white-space: normal; /* Permite el ajuste de las líneas */
+      }
+      

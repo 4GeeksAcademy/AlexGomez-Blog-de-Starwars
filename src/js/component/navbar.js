@@ -27,7 +27,11 @@ export const Navbar = () => {
                             
                             <li key={index} className="d-flex justify-content-between dropdown-item">
                                 <span>{item}</span>
-                                <i className="fas fa-trash-alt" onClick={() => actions.deleteFavorite(item)}></i>
+                                <i className="fas fa-trash-alt" onClick={() => {
+                                    const favorites = store.favorites.filter((favorite) => favorite !== item);
+       
+                                    actions.Favorite({ favorites: favorites })
+                                }}></i>
                             </li>
                         ))}
                     </>}

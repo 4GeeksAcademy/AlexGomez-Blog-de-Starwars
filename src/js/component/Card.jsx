@@ -17,7 +17,7 @@ export const Card = (props) => {
     } else {
 
         const favorites = store.favorites.filter((favorite) => favorite !== name);
-        console.log(favorites);
+       
         actions.Favorite({ favorites: favorites });
     }
   };
@@ -26,11 +26,18 @@ export const Card = (props) => {
     <div className="contenido card mb-3 mb-sm-0">
       <img src="https://placehold.co/400x200" className="card-img-top" alt="..." />
       <div className="card-body">
+      
         <h4 className="card-title text-start m-3">{props.name}</h4>
         <div className="card-text text-start m-3 lh-1">
+        {props.type === "people" ?<>
           <p className="lh-1">Height: <span>{props.height || 'N/A'}</span></p>
           <p className="lh-1">Hair Color: <span>{props.hair_color || 'N/A'}</span></p>
-          <p className="lh-1">Eye Color: <span>{props.eye_color || 'N/A'}</span></p>
+          <p className="lh-1">Eye Color: <span>{props.eye_color || 'N/A'}</span></p> </>  
+          : <>
+           <p className="lh-1">Population: <span>{props.height || 'N/A'}</span></p>
+           <p  className="lh-1 line-break">Terrain: <span style={{maxWidth:"80px"}}>{props.hair_color || 'N/A'}</span></p>
+          </>}
+         
         </div>
         <div className="d-flex justify-content-around">
           <Link to={{ pathname: `/Description/${props.id}` }} className="btn btn-outline-primary fw-bold my-2" onClick={() => { store.idDescription = props.id }}>

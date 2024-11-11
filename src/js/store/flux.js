@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         { title: "SECOND", background: "white", initial: "white" },
       ],
       people: [],
+      infoplaneta: [],
       planets: [],
       vehicles: [],
       favorites: [],
