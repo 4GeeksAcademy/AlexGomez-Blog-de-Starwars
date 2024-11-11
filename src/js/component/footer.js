@@ -12,8 +12,8 @@ export const Footer = () => {
           style={{ cursor: "pointer" }} 
           className="fa fa-heart text-primary" 
           onClick={() => actions.GlobalChange(store.globalChange)} 
-        /> {"  "}
-        &copy;{" "}Alex Salazar 2024
+        /> {"  "}<br />
+        &copy;{" "}Alex Salazar 2024!
       </p>
     </footer>
   );

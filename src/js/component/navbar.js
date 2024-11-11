@@ -10,11 +10,11 @@ export const Navbar = () => {
         <nav className="navbar navbar-light bg-light mb-3">
             <Link to="/">
                 <span className="navbar-brand mb-0">
-                    <img className="logo mx-lg-4" src={logo} alt="Logo" />
+                    <img className="logo mx-lg-4 ps-3" src={logo} alt="Logo" />
                 </span>
             </Link>
             <div className="ml-auto">
-                <div className="dropdown mx-5 p-0">
+                <div style={{marginBottom: "33px"}} className="dropdown mx-5 p-0">
                     <button className="btn btn-primary dropdown-toggle px-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Favorites <span className="badge bg-secondary">{store.favorites.length > 0 ? store.favorites.length : 0}</span>
                     </button>

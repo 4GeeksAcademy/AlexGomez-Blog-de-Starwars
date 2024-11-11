@@ -2,11 +2,12 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
      
-      people: [],
+      
       infoplaneta: [],
       planets: [],
       vehicles: [],
       infoVehicles: [],
+      people: [],
       favorites: [],
       infopeople: [],
       globalChange: false,
@@ -19,9 +20,9 @@ const getState = ({ getStore, getActions, setStore }) => {
         
               setStore(name);
       },
-      GlobalChange(value) {
+         GlobalChange(value) {
     
-        setStore({ globalChange: value ? false : true});
+           setStore({ globalChange: value ? false : true});
         
       }
       
