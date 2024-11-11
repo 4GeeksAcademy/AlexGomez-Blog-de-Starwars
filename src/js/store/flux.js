@@ -10,13 +10,14 @@ const getState = ({ getStore, getActions, setStore }) => {
       vehicles: [],
       favorites: [],
       character: [],
-      idDescription: 0,
     },
     actions: {
-    /*  exampleFunction: () => {
+      exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-     
+      loadSomeData: () => {
+        console.log("Data loaded");
+      },
       loadPlanets: () => {
         fetch("https://www.swapi.tech/api/planets")
           .then((response) => {
@@ -34,19 +35,34 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .then((data) => setStore({ vehicles: data.results }))
           .catch((err) => console.error(err));
-      },*/
-
-      
+      },
       addFavorite: (name) => {
-      return alert(name);
-    
+        const store = getStore();
+        const favorites = store.favorites.concat(name);
+        setStore({ favorites });
       },
       deleteFavorite: (name) => {
         const store = getStore();
         const favorites = store.favorites.filter((favorite) => favorite !== name);
         setStore({ favorites });
       },
-     
+      loadCharacters: () => {
+        const store = getStore();
+        const fetchCharacterData = async (id) => {
+          const response = await fetch(`https://www.swapi.tech/api/people/${id}`);
+          if (!response.ok) throw new Error("La respuesta de la red no fue correcta");
+          const data = await response.json();
+          return data.result.properties;
+        };
+
+        const fetchAllCharacters = async () => {
+          const characterPromises = store.people.map((_, i) => fetchCharacterData(i + 1));
+          const characters = await Promise.all(characterPromises);
+          setStore({ character: characters });
+        };
+
+        fetchAllCharacters().catch((err) => console.error(err));
+      },
       changeColor: (index, color) => {
         const store = getStore();
         const demo = store.demo.map((elm, i) => {
