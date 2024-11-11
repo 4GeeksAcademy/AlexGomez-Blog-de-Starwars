@@ -7,6 +7,7 @@ module.exports = {
   entry: [
     './src/js/index.js'
   ],
+  devServer: { client: { overlay: { warnings: false, errors: false } }},
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public'),
@@ -45,4 +46,4 @@ module.exports = {
     }),
     new Dotenv({ safe: true, systemvars: true })
   ]
-};
+}

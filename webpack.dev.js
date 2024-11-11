@@ -29,7 +29,7 @@ module.exports = merge(common, {
           directory: path.resolve(__dirname, "dist"),
         },
         client: {
-          webSocketURL: publicUrl
+          overlay: { warnings: false, errors: false}
         },
     },
     plugins: []
