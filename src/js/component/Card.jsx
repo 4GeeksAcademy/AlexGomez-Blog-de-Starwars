@@ -33,10 +33,13 @@ export const Card = (props) => {
           <p className="lh-1">Height: <span>{props.height || 'N/A'}</span></p>
           <p className="lh-1">Hair Color: <span>{props.hair_color || 'N/A'}</span></p>
           <p className="lh-1">Eye Color: <span>{props.eye_color || 'N/A'}</span></p> </>  
-          : <>
+          : props.type === "planets"? <>
            <p className="lh-1">Population: <span>{props.height || 'N/A'}</span></p>
            <p  className="lh-1 line-break">Terrain: <span style={{maxWidth:"80px"}}>{props.hair_color || 'N/A'}</span></p>
-          </>}
+          </>:<>
+            <p className="lh-1">Population: <span>{props.height || 'N/A'}</span></p>
+            <p  className="lh-1 line-break">Terrain: <span style={{maxWidth:"80px"}}>{props.hair_color || 'N/A'}</span></p>
+           </>}
          
         </div>
         <div className="d-flex justify-content-around">

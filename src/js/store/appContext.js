@@ -67,12 +67,33 @@ const injectContext = PassedComponent => {
         } catch (error) {
           console.error("Error al obtener los datos:", error);
         }
-      }
+      } if(bool="Vehicles"){
+        try {
+          const responseVehicles = await fetch("https://www.swapi.tech/api/vehicles");
+          if (!responseVehicles.ok) throw new Error("La respuesta de la red no fue correcta");
+          const vehiclesData = await responseVehicles.json();
+        
+          const characterDataVehicles = vehiclesData.results.map(async (item, index) => {
+            const response = await fetch(`https://www.swapi.tech/api/vehicles/${item.uid}`);
+            if (!response.ok) throw new Error("La respuesta de la red no fue correcta");
+            const singleData = await response.json();
+            return singleData.result.properties;
+          });
+          const infoVehicles = await Promise.all(characterDataVehicles);
+          setState(prevState => ({
+            ...prevState,
+            store: { ...prevState.store, vehicles: vehiclesData.results, infoVehicles: infoVehicles }
+          }));
+        } catch (error) {
+          console.error("Error al obtener los datos:", error);
+        }
+      } 
     
     };
 
       fetchData("people");
       fetchData("Planets");
+      fetchData("Vehicles");
     }, []);
 
     return (
