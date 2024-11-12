@@ -6,7 +6,7 @@ export const Description = () => {
 
     const [planet, setPlanet] = useState({});
     const { store } = useContext(Context);
-   
+    const globalChange = store.globalChange;
     useEffect(() => {
                         fetch(`https://www.swapi.tech/api/planets/${store.idDescription}`)
                         .then((response) => {
@@ -21,7 +21,7 @@ export const Description = () => {
         <div className="container">
             <div className="row align-items-center">
                 <div className="col-md-5 mx-auto">
-                       <ImageComponent aux={true}  type="planets" status={true} id={1} />        
+                       <ImageComponent aux={true}  type="planets" status={globalChange} id={1} />        
                 </div>
                 <div className="col-md-5 text-center mx-auto">
                     <h2 className="text-center w-100  mx-auto px-auto">{planet.name}</h2>

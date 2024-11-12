@@ -24,9 +24,20 @@ const getState = ({ getStore, getActions, setStore }) => {
     
            setStore({ globalChange: value ? false : true});
         
+      },
+      search: (value,type) => {
+        if (type === "People") {
+          setStore({ people: value });
+        } else if (type === "Planets") {
+          setStore({ planets: value });
+        } else if (type === "Vehicles") {
+          setStore({ vehicles: value });
+        }
+       
       }
       
-    
+      ,
+      
     },
   };
 };

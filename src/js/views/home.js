@@ -3,6 +3,7 @@ import { Context } from '../store/appContext';
 import { People } from "../component/People.jsx";
 import { Planets } from "../component/Planets.jsx";
 import { Vehicles } from "../component/Vehicles.jsx";
+import Search from '../component/search.jsx';
 
 
 export const Home = () => {
@@ -22,7 +23,8 @@ export const Home = () => {
 
 return(
 	<>
-		<div className="container">				
+		<div className="container">	
+				<Search />	
 				<People />
 				<Planets />
 				<Vehicles/>	

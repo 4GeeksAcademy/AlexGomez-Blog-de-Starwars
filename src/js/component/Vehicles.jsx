@@ -8,7 +8,6 @@ export const Vehicles = () => {
     const infoVehicles = store.infoVehicles;
     const globalChange = store.globalChange;
 
-console.log(store.infoVehicles);
 
 
     return (
